@@ -26,6 +26,9 @@ If you can use ASP.Net Core 2 MVC, you can use this library.
 
 1. Acquire the library via one of the methods below.
 1. Use `this.SetFeedbackMessage()` inside an MVC Controller method.
+1. Import TagHelpers from this assembly
+    - add the following to a Razor View, or to `_ViewImports.cshtml`:
+    - `@addTagHelper *, UoN.AspNetCore.FeedbackMessage`
 1. Use the `<uon-feedbackmessage />` TagHelper in a a Razor View.
 1. ????
 1. PROFIT!
