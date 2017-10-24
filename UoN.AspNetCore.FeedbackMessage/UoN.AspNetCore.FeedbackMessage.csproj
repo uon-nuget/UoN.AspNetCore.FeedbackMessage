@@ -2,6 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageVersion>1.0.0-beta1</PackageVersion>
+    <Authors>UoN Application Development</Authors>
+    <Description>Reusable bits for ASP.NET Core to make displaying feedback messages after action redirects easy.</Description>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageReleaseNotes>First release</PackageReleaseNotes>
+    <Copyright>Copyright 2017 (c) University of Nottingham.</Copyright>
+    <PackageTags>uon feedback alert taghelper</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
