@@ -1,6 +1,7 @@
 # UoN.AspNetCore.FeedbackMessage
 
 [![License](https://img.shields.io/badge/licence-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://travis-ci.org/UniversityOfNottingham/UoN.AspNetCore.FeedbackMessage.svg?branch=develop)](https://travis-ci.org/UniversityOfNottingham/UoN.AspNetCore.FeedbackMessage)
 
 ## What is it?
 
