@@ -32,7 +32,7 @@ If you can use ASP.Net Core 2 MVC, you can use this library.
 
 ### NuGet
 
-This library will be hosted on nuget.org from `1.0.0` at the latest.
+This library is available from [nuget.org](https://www.nuget.org/packages/UoN.AspNetCore.FeedbackMessage/)
 
 ### Build from source
 
