@@ -2,17 +2,28 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageVersion>1.1.0-alpha3</PackageVersion>
+    <PackageVersion>1.1.0</PackageVersion>
+    
     <Authors>UoN Application Development</Authors>
-    <Description>Reusable bits for ASP.NET Core to make displaying feedback messages after action redirects easy.</Description>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    
+    <Description>
+Reusable bits for ASP.NET Core MVC to make displaying feedback messages easy, via Action redirects or AJAX.
+    </Description>
+    
     <PackageReleaseNotes>
-This release features:
+This release features AJAX support:
 
-- A Controller and Partial View that can be used to get feedback messages via ajax
+- A Controller and Partial View that can be used to get feedback message html via ajax
 - An `IMvcBuilder` extension for registering the aforementioned controller from this assembly.
     </PackageReleaseNotes>
+    
     <Copyright>Copyright 2017 (c) University of Nottingham.</Copyright>
+    
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/UniversityOfNottingham/UoN.AspNetCore.FeedbackMessage/develop/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/UniversityOfNottingham/UoN.AspNetCore.FeedbackMessage</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/UniversityOfNottingham/UoN.AspNetCore.FeedbackMessage</RepositoryUrl>
+    
     <PackageTags>uon feedback alert taghelper</PackageTags>
   </PropertyGroup>
 
