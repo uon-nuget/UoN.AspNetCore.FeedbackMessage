@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageVersion>1.1.0-alpha2</PackageVersion>
+    <PackageVersion>1.1.0-alpha3</PackageVersion>
     <Authors>UoN Application Development</Authors>
     <Description>Reusable bits for ASP.NET Core to make displaying feedback messages after action redirects easy.</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
@@ -17,7 +17,12 @@ This release features:
   </PropertyGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Views\FeedbackMessageAjax\UoNFeedbackMessage.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="2.0.0" />
   </ItemGroup>
 
 </Project>

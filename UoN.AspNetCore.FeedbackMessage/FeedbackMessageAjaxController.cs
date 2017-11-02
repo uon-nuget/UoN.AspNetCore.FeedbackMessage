@@ -1,10 +1,18 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace UoN.AspNetCore.FeedbackMessage
 {
     public class FeedbackMessageAjaxController : Controller
     {
+        private readonly IRazorViewEngine _viewEngine;
+
+        public FeedbackMessageAjaxController(IRazorViewEngine viewEngine)
+        {
+            _viewEngine = viewEngine;
+        }
+
         public IActionResult Index(string message, string type)
         {
             AlertTypes t;
@@ -21,6 +29,7 @@ namespace UoN.AspNetCore.FeedbackMessage
             }
 
             this.SetFeedbackMessage(message, t);
+
             return PartialView("UoNFeedbackMessage");
         }
     }
