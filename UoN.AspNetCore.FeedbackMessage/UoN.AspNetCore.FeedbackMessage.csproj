@@ -7,11 +7,10 @@
     <Description>Reusable bits for ASP.NET Core to make displaying feedback messages after action redirects easy.</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>
-      This pre-release features:
-      
-      - Markdown testing in release notes
-      - A Controller and Partial View that can be used to get feedback messages via ajax
-      - An `IMvcBuilder` extension for registering the aforementioned controller from this assembly.
+This release features:
+
+- A Controller and Partial View that can be used to get feedback messages via ajax
+- An `IMvcBuilder` extension for registering the aforementioned controller from this assembly.
     </PackageReleaseNotes>
     <Copyright>Copyright 2017 (c) University of Nottingham.</Copyright>
     <PackageTags>uon feedback alert taghelper</PackageTags>
