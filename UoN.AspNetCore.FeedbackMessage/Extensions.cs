@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 
 namespace UoN.AspNetCore.FeedbackMessage
 {
     /// <summary>
-    /// Extension methods for support Feedback Messages
+    /// Extension methods for supporting Feedback Messages
     /// </summary>
     public static class Extensions
     {
@@ -34,5 +35,14 @@ namespace UoN.AspNetCore.FeedbackMessage
             tempData.TryGetValue(Key, out var o);
             return o == null ? null : JsonConvert.DeserializeObject<FeedbackMessageModel>((string)o);
         }
+
+        /// <summary>
+        /// Registers the Uon.AspNetCore.FeedbackMessage.FeedbackMessageAjaxController
+        /// which allows for easy use of FeedbackMessages via AJAX.
+        /// Default route is /FeedbackMessageAjax (i.e. /[controller])
+        /// </summary>
+        public static IMvcBuilder AddAjaxFeedbackMessageSupport(this IMvcBuilder builder)
+            =>  builder.AddApplicationPart(typeof(Extensions).Assembly)
+                .AddControllersAsServices();
     }
 }
