@@ -1,11 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Newtonsoft.Json;
 
 namespace UoN.AspNetCore.FeedbackMessage
 {
     /// <summary>
-    /// Extension methods for support Feedback Messages
+    /// Extension methods for supporting Feedback Messages
     /// </summary>
     public static class Extensions
     {
@@ -33,6 +36,26 @@ namespace UoN.AspNetCore.FeedbackMessage
         {
             tempData.TryGetValue(Key, out var o);
             return o == null ? null : JsonConvert.DeserializeObject<FeedbackMessageModel>((string)o);
+        }
+
+        /// <summary>
+        /// Registers the Uon.AspNetCore.FeedbackMessage.FeedbackMessageAjaxController
+        /// which allows for easy use of FeedbackMessages via AJAX.
+        /// Default route is /FeedbackMessageAjax (i.e. /[controller])
+        /// </summary>
+        /// <param name="services">The IServiceCollection from ConfigureServices, to allow configuring Razor</param>
+        public static IMvcBuilder AddAjaxFeedbackMessageSupport(this IMvcBuilder builder, IServiceCollection services)
+        {
+            var assembly = typeof(Extensions).Assembly;
+
+            //Add embedded views from this asembly to Razor
+            var fileProvider = new EmbeddedFileProvider(assembly);
+            services.Configure<RazorViewEngineOptions>(
+                opts => opts.FileProviders.Add(fileProvider));
+
+            //Add Controllers from this assembly to MVC
+            return builder.AddApplicationPart(assembly)
+                .AddControllersAsServices();
         }
     }
 }
