@@ -30,13 +30,13 @@ The library targets `netstandard2.0` and depends upon ASP.Net Core 2.1 MVC.
 
 If you can use ASP.Net Core 2.1 MVC, you can use this library.
 
-## Acquiring the library
+# Installation
 
-### NuGet
+## NuGet
 
 This library is available from [nuget.org](https://www.nuget.org/packages/UoN.AspNetCore.FeedbackMessage/)
 
-### Build from source
+## Build from source
 
 We recommend building with the `dotnet` cli, but since the package targets `netstandard2.0` and depends only on ASP.Net Core 2.1 MVC, you should be able to build it in any tooling that supports those requirements.
 
@@ -55,7 +55,7 @@ While not the most useful thing this library can do, it can be used as a TagHelp
 1. Import TagHelpers from this assembly
     - add the following to a Razor View, or to `_ViewImports.cshtml`:
     - `@addTagHelper *, UoN.AspNetCore.FeedbackMessage`
-1. Use the `<uon-feedbackmessage />` TagHelper in a a Razor View.
+1. Use the `<uon-feedbackmessage />` TagHelper in a Razor View.
 1. ????
 1. PROFIT!
 
@@ -82,7 +82,7 @@ By default, an empty `<uon-feedbackmessage />` TagHelper will only render an ale
 1. Import TagHelpers from this assembly
     - add the following to a Razor View, or to `_ViewImports.cshtml`:
     - `@addTagHelper *, UoN.AspNetCore.FeedbackMessage`
-1. Use the `<uon-feedbackmessage />` TagHelper in a a Razor View.
+1. Use the `<uon-feedbackmessage />` TagHelper in a Razor View.
 1. ????
 1. PROFIT!
 
