@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageVersion>1.2.0-alpha.1</PackageVersion>
+    <PackageVersion>2.0.0-alpha.1</PackageVersion>
     
     <Authors>UoN Application Development</Authors>
     
@@ -11,9 +11,22 @@ Reusable bits for ASP.NET Core MVC to make displaying feedback messages easy, vi
     </Description>
     
     <PackageReleaseNotes>
+      // TODO 2.0 write up
+      
+      - bootstrap dismissable alerts
+      - HTML
+      - View components
+      - Razor SDK
+      - ASP.NET Core 2.1 (no config)
+      - TODO configurable stuff like classes, tags, routes
+      
       This release features support for dismissable Bootstrap alerts.
 
 The functionality requires Bootstrap 4's `utils.js` javascript module.
+
+It also moves the project to the newly standard Razor SDK for libraries that include views.
+
+This means a dependency on ASP.NET Core 2.1, but results in no longer requiring any service configuration.
     </PackageReleaseNotes>
     
     <Copyright>Copyright 2017 (c) University of Nottingham.</Copyright>
