@@ -3,11 +3,9 @@
 [![License](https://img.shields.io/badge/licence-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Build Status](https://travis-ci.org/UniversityOfNottingham/UoN.AspNetCore.FeedbackMessage.svg?branch=develop)](https://travis-ci.org/UniversityOfNottingham/UoN.AspNetCore.FeedbackMessage)
 
-## What is it?
-
 A Razor Class Library for ASP.NET Core to make displaying feedback messages after action redirects easy.
 
-## What are its features?
+# Features
 
 Feedback Message alert features:
 
@@ -26,21 +24,19 @@ It provides the following code items:
 - A TagHelper for rendering the above ViewComponent with a model either from `TempData["FeedbackMessage"]` or as configured by attributes.
 - A Controller for returning the above ViewComponent as configured by the HTTP request; useful for requesting via AJAX to add the result to a page.
 
-## Dependencies
+# Dependencies
 
 The library targets `netstandard2.0` and depends upon ASP.Net Core 2.1 MVC.
 
 If you can use ASP.Net Core 2.1 MVC, you can use this library.
 
-## Usage
+## Acquiring the library
 
-### Acquiring the library
-
-#### NuGet
+### NuGet
 
 This library is available from [nuget.org](https://www.nuget.org/packages/UoN.AspNetCore.FeedbackMessage/)
 
-#### Build from source
+### Build from source
 
 We recommend building with the `dotnet` cli, but since the package targets `netstandard2.0` and depends only on ASP.Net Core 2.1 MVC, you should be able to build it in any tooling that supports those requirements.
 
@@ -49,7 +45,36 @@ We recommend building with the `dotnet` cli, but since the package targets `nets
 - Optionally `dotnet pack`
 - Reference the resulting assembly, or NuGet package.
 
-### Standard Server-side usage
+# Usage
+
+## Static usage in a Razor View
+
+While not the most useful thing this library can do, it can be used as a TagHelper for bootstrap alert markup in a Razor view:
+
+1. Acquire the library via one of the methods above.
+1. Import TagHelpers from this assembly
+    - add the following to a Razor View, or to `_ViewImports.cshtml`:
+    - `@addTagHelper *, UoN.AspNetCore.FeedbackMessage`
+1. Use the `<uon-feedbackmessage />` TagHelper in a a Razor View.
+1. ????
+1. PROFIT!
+
+### TagHelper parameters
+
+By default, an empty `<uon-feedbackmessage />` TagHelper will only render an alert if a FeedbackMessage is set in `TempData`. This behaviour is configurable.
+
+- `message` - sets a static message on this FeedbackMessage tag.
+    - this will always be rendered, unless `use-tempdata` is true, and a message is set in TempData.
+- `type` - sets an alert type (informing the CSS class) to use when rendering the above `message`.
+    - defaults to `secondary`.
+- `dismissable` - sets whether the alert is dismissable when rendering the above message.
+    - defaults to `true`.
+- `use-tempdata` - Specifies whether this FeedbackMessage should render messages in TempData, when they exist.
+    - defaults to `true`.
+    - if `false`, only the message as configured by the above attributes will be shown, TempData content will have no effect on this tag.
+    - if `true`, when there is TempData content, it will be shown, otherwise the message as configured above will be shown.
+
+## Standard Server-side usage
 
 1. Acquire the library via one of the methods above.
 1. Ensure the [ASP.NET Core Session Middleware] is configured in your project.
@@ -61,7 +86,17 @@ We recommend building with the `dotnet` cli, but since the package targets `nets
 1. ????
 1. PROFIT!
 
-#### An example:
+Refer to the TagHelper parameters above to see how the TagHelper can be further configured.
+
+### `SetFeedbackMessage()` parameters
+
+- `message` - sets a message in TempData.
+- `type` - sets an alert type (informing the CSS class) to use when rendering the above `message`.
+    - defaults to `secondary`.
+- `dismissable` - sets whether the alert is dismissable when rendering the above message.
+    - defaults to `true`.
+
+### An example:
 
 `MyController.cs`
 
@@ -97,30 +132,7 @@ public class MyController : Controller
 </div>
 ```
 
-#### SetFeedbackMessage parameters
-
-- `message` - sets a message in TempData.
-- `type` - sets an alert type (informing the CSS class) to use when rendering the above `message`.
-    - defaults to `secondary`.
-- `dismissable` - sets whether the alert is dismissable when rendering the above message.
-    - defaults to `true`.
-
-#### TagHelper parameters
-
-By default, an empty `<uon-feedbackmessage />` TagHelper will only render an alert if a FeedbackMessage is set in `TempData`. This behaviour is configurable.
-
-- `message` - sets a static message on this FeedbackMessage tag.
-    - this will always be rendered, unless `use-tempdata` is true, and a message is set in TempData.
-- `type` - sets an alert type (informing the CSS class) to use when rendering the above `message`.
-    - defaults to `secondary`.
-- `dismissable` - sets whether the alert is dismissable when rendering the above message.
-    - defaults to `true`.
-- `use-tempdata` - Specifies whether this FeedbackMessage should render messages in TempData, when they exist.
-    - defaults to `true`.
-    - if `false`, only the message as configured by the above attributes will be shown, TempData content will have no effect on this tag.
-    - if `true`, when there is TempData content, it will be shown, otherwise the message as configured above will be shown.
-
-### AJAX usage
+## AJAX usage
 
 1. Acquire the library via one of the methods above.
 1. Optionally specify an MVC Route template for the `FeedbackMessageAjaxController`, else it will default to `/FeedbackMessageAjax` as per MVC default conventions
@@ -128,21 +140,15 @@ By default, an empty `<uon-feedbackmessage />` TagHelper will only render an ale
 1. ????
 1. PROFIT!
 
-#### An example:
+### `/FeedbackMessageAjax` Request parameters
 
-`Startup.cs`
+- `message` - sets a message for the markup to be returned in the AJAX response.
+- `type` - sets an alert type (informing the CSS class) to use when rendering the above `message`.
+    - defaults to `secondary`.
+- `dismissable` - sets whether the alert is dismissable when rendering the above message.
+    - defaults to `true`.
 
-```csharp
-public void ConfigureServices(IServiceCollection services)
-        {
-            ...
-
-            services.AddMvc()
-                .AddAjaxFeedbackMessageSupport(services);
-
-            ...
-        }
-```
+### An example:
 
 `feedback-message.js`
 
@@ -171,15 +177,7 @@ window.feedbackMessage = (message, type, dismissable) => {
 window.feedbackMessage("Hello!", "info");
 ```
 
-#### AJAX Request parameters
-
-- `message` - sets a message for the markup to be returned in the AJAX response.
-- `type` - sets an alert type (informing the CSS class) to use when rendering the above `message`.
-    - defaults to `secondary`.
-- `dismissable` - sets whether the alert is dismissable when rendering the above message.
-    - defaults to `true`.
-
-## Roadmap
+# Roadmap
 
 The following are future work that could be contributed to the library:
 
@@ -197,8 +195,10 @@ The following are future work that could be contributed to the library:
         - as well as providing simpler syntax for common use
         - and a built in way of rendering escaped code if desired
         - probably makes the configuration option for plain text only redundant.
+    - Explore and document overriding the view rendered by the ViewComponent.
+        - in theory, being a Razor Class Library allows this, but some guidance / examples would be nice.
 
-## Contributing
+# Contributing
 
 Contributions are welcome.
 
