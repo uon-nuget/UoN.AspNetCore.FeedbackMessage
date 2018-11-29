@@ -18,7 +18,10 @@ Reusable bits for ASP.NET Core MVC to make displaying feedback messages easy, vi
       - View components
       - Razor SDK
       - ASP.NET Core 2.1 (no config) (use 1.x for ASP.NET Core 2.0)
-      - TODO configurable stuff like classes, tags, routes
+      - static message/type if tempdata not set (or turned off)
+      - TODO configurable stuff like classes, tags, routes, default type, default tempdata usage
+      - TODO overriding the view?
+      
       
       This release features support for dismissable Bootstrap alerts.
 
