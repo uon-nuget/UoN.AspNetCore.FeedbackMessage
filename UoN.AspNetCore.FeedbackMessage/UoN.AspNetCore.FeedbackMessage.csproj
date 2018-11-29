@@ -21,6 +21,7 @@ Reusable bits for ASP.NET Core MVC to make displaying feedback messages easy, vi
       - static message/type if tempdata not set (or turned off)
       - TODO configurable stuff like classes, tags, routes, default type, default tempdata usage
       - TODO overriding the view?
+      - TODO make html support configurable (including default), possibly switch to Markdown for safety and allowing easier escapes.
       
       
       This release features support for dismissable Bootstrap alerts.

@@ -7,11 +7,12 @@ namespace UoN.AspNetCore.FeedbackMessage.ViewComponents
     [ViewComponent(Name = "UonFeedbackMessage")]
     public class UonFeedbackMessage : ViewComponent
     {
-        public async Task<IViewComponentResult> InvokeAsync(string message, string type)
+        public async Task<IViewComponentResult> InvokeAsync(string message, string type, bool dismissable)
             => View(new FeedbackMessageModel
             {
                 Message = message,
-                Type = type
+                Type = type,
+                Dismissable = dismissable
             });
     }
 }

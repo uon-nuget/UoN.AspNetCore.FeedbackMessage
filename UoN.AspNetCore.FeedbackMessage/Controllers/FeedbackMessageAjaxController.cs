@@ -5,11 +5,12 @@ namespace UoN.AspNetCore.FeedbackMessage.Controllers
 {
     public class FeedbackMessageAjaxController : Controller
     {
-        public IActionResult Index(string message, string type = null)
+        public IActionResult Index(string message, string type = null, bool dismissable = true)
             => ViewComponent("UonFeedbackMessage", new FeedbackMessageModel
             {
                 Message = message,
-                Type = type
+                Type = type,
+                Dismissable = dismissable
             });
     }
 }

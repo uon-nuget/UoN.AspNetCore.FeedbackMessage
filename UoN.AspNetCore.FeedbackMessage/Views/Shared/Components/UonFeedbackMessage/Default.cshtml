@@ -1,5 +1,17 @@
 ﻿@model UoN.AspNetCore.FeedbackMessage.Models.FeedbackMessageModel
 
-<div class="alert @Model.Class">
+@{
+    var cssClasses = new List<string> { $"alert {Model.Class} fade show" };
+    if (Model.Dismissable) { cssClasses.Add("alert-dismissable"); }
+    var cssClass = string.Join(" ", cssClasses);
+}
+
+<div class="@cssClass">
+    @if (Model.Dismissable)
+    {
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    }
     @Html.Raw(Model.Message)
 </div>

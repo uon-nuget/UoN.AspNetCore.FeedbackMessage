@@ -30,6 +30,12 @@
         public string Type { get; set; }
 
         /// <summary>
+        /// Should the alert contain classes and markup which make it able to be dismissed.
+        /// Works out the box with Bootstrap 4.
+        /// </summary>
+        public bool Dismissable { get; set; } = true;
+
+        /// <summary>
         /// CSS class string based on the type of alert.
         /// Works out the box with defined Bootstrap theme colors
         /// If you're writing your own css, use the `alert-[type]` selector.

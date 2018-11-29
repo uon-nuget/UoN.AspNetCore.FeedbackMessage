@@ -36,6 +36,9 @@ namespace UoN.AspNetCore.FeedbackMessage
         [HtmlAttributeName("use-tempdata")]
         public bool UseTempData { get; set; } = true;
 
+        [HtmlAttributeName("dismissable")]
+        public bool Dismissable { get; set; } = true;
+
         /// <inheritdoc />
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
@@ -63,7 +66,8 @@ namespace UoN.AspNetCore.FeedbackMessage
                 model = new FeedbackMessageModel
                 {
                     Message = Message,
-                    Type = Type
+                    Type = Type,
+                    Dismissable = Dismissable
                 };
 
             if (string.IsNullOrWhiteSpace(model.Message)) return;
@@ -71,8 +75,7 @@ namespace UoN.AspNetCore.FeedbackMessage
             ((IViewContextAware)_viewComponentHelper).Contextualize(ViewContext);
 
             var content = await _viewComponentHelper.InvokeAsync(
-                typeof(UonFeedbackMessage),
-                new { model.Message, model.Type });
+                typeof(UonFeedbackMessage), model);
 
             output.Content.SetHtmlContent(content);
         }
