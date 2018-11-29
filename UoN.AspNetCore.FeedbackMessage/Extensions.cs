@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
 using Newtonsoft.Json;
+using UoN.AspNetCore.FeedbackMessage.Models;
 
 namespace UoN.AspNetCore.FeedbackMessage
 {
@@ -20,13 +18,46 @@ namespace UoN.AspNetCore.FeedbackMessage
         /// <summary>
         /// Controller extension method, so any controller action can do `this.SetFeedBackMessage()`
         /// </summary>
-        /// <param name="message">The plain text of the message</param>
+        /// <param name="model">A model containing all the properties of the Feedback Message to set</param>
+        public static void SetFeedbackMessage(this Controller controller, FeedbackMessageModel model)
+            => controller.TempData[Key] = JsonConvert.SerializeObject(model);
+
+        /// <summary>
+        /// Controller extension method, so any controller action can do `this.SetFeedBackMessage()`
+        /// </summary>
+        /// <param name="message">The HTML content of the message</param>
         /// <param name="type">The type of alert</param>
-        public static void SetFeedbackMessage(this Controller controller, string message, AlertTypes type)
-        {
-            controller.TempData[Key] = JsonConvert.SerializeObject(
-                new FeedbackMessageModel(message, type));
-        }
+        public static void SetFeedbackMessage(this Controller controller, string message, string type)
+            => controller.SetFeedbackMessage(new FeedbackMessageModel { Message = message, Type = type });
+
+        /// <summary>
+        /// Controller extension method, so any controller action can do `this.SetFeedBackMessage()`
+        /// </summary>
+        /// <param name="message">The HTML content of the message</param>
+        public static void SetFeedbackMessage(this Controller controller, string message)
+            => controller.SetFeedbackMessage(new FeedbackMessageModel { Message = message });
+
+        /// <summary>
+        /// Controller extension method, so any controller action can do `this.SetFeedBackMessage()`
+        /// </summary>
+        /// <param name="message">The HTML content of the message</param>
+        /// <param name="dismissable">Should the alert be able to be dismissed?</param>
+        public static void SetFeedbackMessage(this Controller controller, string message, bool dismissable)
+            => controller.SetFeedbackMessage(new FeedbackMessageModel { Message = message, Dismissable = dismissable });
+
+        /// <summary>
+        /// Controller extension method, so any controller action can do `this.SetFeedBackMessage()`
+        /// </summary>
+        /// <param name="message">The HTML content of the message</param>
+        /// <param name="type">The type of alert</param>
+        /// <param name="dismissable">Should the alert be able to be dismissed?</param>
+        public static void SetFeedbackMessage(this Controller controller, string message, string type, bool dismissable)
+            => controller.SetFeedbackMessage(new FeedbackMessageModel
+            {
+                Message = message,
+                Type = type,
+                Dismissable = dismissable
+            });
 
         /// <summary>
         /// TempData extension, that handles casting, Key access for you
@@ -36,26 +67,6 @@ namespace UoN.AspNetCore.FeedbackMessage
         {
             tempData.TryGetValue(Key, out var o);
             return o == null ? null : JsonConvert.DeserializeObject<FeedbackMessageModel>((string)o);
-        }
-
-        /// <summary>
-        /// Registers the Uon.AspNetCore.FeedbackMessage.FeedbackMessageAjaxController
-        /// which allows for easy use of FeedbackMessages via AJAX.
-        /// Default route is /FeedbackMessageAjax (i.e. /[controller])
-        /// </summary>
-        /// <param name="services">The IServiceCollection from ConfigureServices, to allow configuring Razor</param>
-        public static IMvcBuilder AddAjaxFeedbackMessageSupport(this IMvcBuilder builder, IServiceCollection services)
-        {
-            var assembly = typeof(Extensions).Assembly;
-
-            //Add embedded views from this asembly to Razor
-            var fileProvider = new EmbeddedFileProvider(assembly);
-            services.Configure<RazorViewEngineOptions>(
-                opts => opts.FileProviders.Add(fileProvider));
-
-            //Add Controllers from this assembly to MVC
-            return builder.AddApplicationPart(assembly)
-                .AddControllersAsServices();
         }
     }
 }
