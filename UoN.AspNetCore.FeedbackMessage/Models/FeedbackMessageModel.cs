@@ -8,17 +8,6 @@
         public static readonly string DefaultType = "secondary";
 
         /// <summary>
-        /// Constructor, partly provided for JsonConvert
-        /// </summary>
-        /// <param name="message"></param>
-        /// <param name="type"></param>
-        //public FeedbackMessageModel(string message, AlertTypes type)
-        //{
-        //    Message = message;
-        //    Type = type;
-        //}
-
-        /// <summary>
         /// The plain text message
         /// </summary>
         public string Message { get; set; }
