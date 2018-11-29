@@ -11,13 +11,13 @@ Reusable bits for ASP.NET Core MVC to make displaying feedback messages easy, vi
     </Description>
     
     <PackageReleaseNotes>
-      // TODO 2.0 write up
+      // TODO 2.0 write up and readme updates
       
       - bootstrap dismissable alerts
       - HTML
       - View components
       - Razor SDK
-      - ASP.NET Core 2.1 (no config)
+      - ASP.NET Core 2.1 (no config) (use 1.x for ASP.NET Core 2.0)
       - TODO configurable stuff like classes, tags, routes
       
       This release features support for dismissable Bootstrap alerts.
@@ -38,10 +38,6 @@ This means a dependency on ASP.NET Core 2.1, but results in no longer requiring 
     <RepositoryUrl>https://github.com/UniversityOfNottingham/UoN.AspNetCore.FeedbackMessage</RepositoryUrl>
     <PackageTags>uon feedback alert taghelper</PackageTags>
   </PropertyGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Views\FeedbackMessageAjax\UoNFeedbackMessage.cshtml" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.0" />

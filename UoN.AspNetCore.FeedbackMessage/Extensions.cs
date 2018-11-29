@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using UoN.AspNetCore.FeedbackMessage.Models;
 using Newtonsoft.Json;
 
 namespace UoN.AspNetCore.FeedbackMessage
@@ -19,10 +20,10 @@ namespace UoN.AspNetCore.FeedbackMessage
         /// </summary>
         /// <param name="message">The plain text of the message</param>
         /// <param name="type">The type of alert</param>
-        public static void SetFeedbackMessage(this Controller controller, string message, AlertTypes type)
+        public static void SetFeedbackMessage(this Controller controller, string message, string type)
         {
             controller.TempData[Key] = JsonConvert.SerializeObject(
-                new FeedbackMessageModel(message, type));
+                new FeedbackMessageModel { Message = message, Type = type });
         }
 
         /// <summary>
