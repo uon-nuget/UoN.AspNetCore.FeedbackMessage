@@ -14,12 +14,13 @@ Feedback Message alert features:
 - Alerts can include a "close" button, to dismiss them. This works out the box with [Bootstrap 4], or can otherwise be implemented separately.
 - Can be used for static alerts as well as Session based `TempData` driven alerts.
 - Can be used via AJAX to build alert markup without reloading the page.
+- Can show multiple alearts at once.
 
 It provides the following code items:
 
 - A model class representing a configurable Feedback Message.
 - Extension methods for setting and getting `FeedbackMessageModel`s at `TempData["FeedbackMessage"]`.
-- A View for rendering a `FeedbackMessageModel` as a [Bootstrap 4] style alert.
+- A View for rendering a `List<FeedbackMessageModel>` as a [Bootstrap 4] style alert.
 - A ViewComponent for rendering the above View, or a local override.
 - A TagHelper for rendering the above ViewComponent with a model either from `TempData["FeedbackMessage"]` or as configured by attributes.
 - A Controller for returning the above ViewComponent as configured by the HTTP request; useful for requesting via AJAX to add the result to a page.
@@ -78,7 +79,7 @@ By default, an empty `<uon-feedbackmessage />` TagHelper will only render an ale
 
 1. Acquire the library via one of the methods above.
 1. Ensure the [ASP.NET Core Session Middleware] is configured in your project.
-1. Use `this.SetFeedbackMessage()` inside an MVC Controller method.
+1. Use `this.AddFeedbackMessage()` inside an MVC Controller method for every feedback message you want to display.
 1. Import TagHelpers from this assembly
     - add the following to a Razor View, or to `_ViewImports.cshtml`:
     - `@addTagHelper *, UoN.AspNetCore.FeedbackMessage`
@@ -107,7 +108,8 @@ public class MyController : Controller
 
     public IActionResult MyAction()
     {
-        this.SetFeedbackMessage("It's working!", "success");
+        this.AddFeedbackMessage("It's working!", "success");
+        this.AddFeedbackMessage("But here is a warning...", "warning");
         return View();
     }
 }
@@ -128,7 +130,10 @@ public class MyController : Controller
 
 ``` html
 <div class="alert alert-success">
-    Hello!
+    It's working!
+</div>
+<div class="alert alert-warning">
+    But here is a warning...
 </div>
 ```
 
@@ -154,17 +159,18 @@ public class MyController : Controller
 
 ```javascript
 //global function that assumes we have jquery...
-window.feedbackMessage = (message, type, dismissable) => {
-    let feedback = $("#feedback-message"); //this is a div on the page
-
-    $.get({
+window.feedbackMessage = (messages) => {
+    const feedback = $("#feedback-message"); //this is a div on the page
+    $.ajax({
+        type: "POST",
         url: "/FeedbackMessageAjax",
-        data: { "message": message, "type": type, "dismissable": dismissable },
-        success: function(content) {
+        data: JSON.stringify(messages),
+        contentType: "application/json",
+        dataType: "html",
+        success: function (content) {
             //use animation to make it clear the message has changed if there was already one there!
-            feedback.fadeOut(200, "swing", function() {
+            feedback.fadeOut(200, "swing", () => {
                 feedback.html(content);
-
                 feedback.fadeIn(100);
             });
         }
@@ -174,7 +180,7 @@ window.feedbackMessage = (message, type, dismissable) => {
 ...
 
 //some situation in which we want a feedback message
-window.feedbackMessage("Hello!", "info");
+window.feedbackMessage([{"Hello!", "info"}, {"Hello Again!", "warning"}]);
 ```
 
 # Roadmap
