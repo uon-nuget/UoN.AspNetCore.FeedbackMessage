@@ -14,13 +14,13 @@ Feedback Message alert features:
 - Alerts can include a "close" button, to dismiss them. This works out the box with [Bootstrap 4], or can otherwise be implemented separately.
 - Can be used for static alerts as well as Session based `TempData` driven alerts.
 - Can be used via AJAX to build alert markup without reloading the page.
-- Can show multiple alearts at once.
+- Can show multiple alerts at once.
 
 It provides the following code items:
 
 - A model class representing a configurable Feedback Message.
-- Extension methods for setting and getting `FeedbackMessageModel`s at `TempData["FeedbackMessage"]`.
-- A View for rendering a `List<FeedbackMessageModel>` as a [Bootstrap 4] style alert.
+- Extension methods for setting, getting and clearing multiple `FeedbackMessageModel`s at `TempData["FeedbackMessage"]`.
+- A View for rendering a list of `FeedbackMessageModel`s with a [Bootstrap 4] style alert per model
 - A ViewComponent for rendering the above View, or a local override.
 - A TagHelper for rendering the above ViewComponent with a model either from `TempData["FeedbackMessage"]` or as configured by attributes.
 - A Controller for returning the above ViewComponent as configured by the HTTP request; useful for requesting via AJAX to add the result to a page.
@@ -80,6 +80,7 @@ By default, an empty `<uon-feedbackmessage />` TagHelper will only render an ale
 1. Acquire the library via one of the methods above.
 1. Ensure the [ASP.NET Core Session Middleware] is configured in your project.
 1. Use `this.AddFeedbackMessage()` inside an MVC Controller method for every feedback message you want to display.
+  - optionally use `this.ClearFeedbackMessages()` inside an MVC Controller method to remove all currently set messages.
 1. Import TagHelpers from this assembly
     - add the following to a Razor View, or to `_ViewImports.cshtml`:
     - `@addTagHelper *, UoN.AspNetCore.FeedbackMessage`
