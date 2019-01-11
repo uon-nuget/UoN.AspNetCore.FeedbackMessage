@@ -2,35 +2,18 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageVersion>2.0.0</PackageVersion>
+    <PackageVersion>2.1.0</PackageVersion>
     
     <Authors>UoN Application Development</Authors>
     
     <Description>
 Reusable bits for ASP.NET Core MVC to make displaying feedback messages easy, via Action redirects or AJAX.
     </Description>
-    
+
     <PackageReleaseNotes>
-This release is breaking in that it now requires ASP.NET Core 2.1 or newer. Please continue to use 1.x if you wish to use this library with ASP.NET Core 2.0.
-
-New features in this release:
-
-- Zero config usage. You no longer need to add anything to Startup to use the AJAX features.
-- Static alerts - due to changes under the hood, the `<uon-feedbackmessage />` TagHelper can be used for static alerts on a page,
-instead of the regular `TempData` driven behaviour. Attributes are use to configure the TagHelper.
-- HTML is supported in messages. This just uses `HTML.Raw()` for now, so be aware of the risks and be careful.
-- Dismissable alerts - alerts use Bootstrap 4's dismissable behaviour by default. They can be made optionally non-dismissable.
-- Types enum is gone - to be more flexible we now just accept strings for types.
-This plays better when not using Bootstrap, or with custom Bootstrap theme-colors defined.
-
-Under the hood changes:
-
-- The library is now built with the Razor SDK, and is therefore considered a "Razor Class Library".
-This means that it requires ASP.NET Core 2.1, but its views, controllers etc. are available without further configuration.
-- The actual alerts are now implemented as a ViewComponent, so their content is defined in an actual Razor View, which makes ading new features much simpler.
-- The TagHelper now just renders the ViewComponent with details from TempData.
-- The AJAX version no longer unnecessarily uses TempData. A side-effect of this is that the TagHelper version doesn't have to either.
-- Theoretically, a custom override view inside a using project should be possible, to replace the one in the library. This hasn't been tested.
+      Mutiple alerts can now be set and displayed together.
+      `this.SetFeedbackMessage()` has now become `this.AddFeedbackMessage()`.
+      Use `this.ClearFeedbackMessages()` inside an MVC Controller method to remove all currently set messages.
     </PackageReleaseNotes>
     
     <Copyright>Copyright 2017 (c) University of Nottingham.</Copyright>

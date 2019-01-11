@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using UoN.AspNetCore.FeedbackMessage.Models;
 using UoN.AspNetCore.FeedbackMessage.ViewComponents;
@@ -45,38 +47,34 @@ namespace UoN.AspNetCore.FeedbackMessage
             // this tag heper doesn't actually output anything.
             // It does render our ViewComponent afterwards, if there is any content for it.
             output.SuppressOutput();
-
-            FeedbackMessageModel model = null;
-
+            IList<FeedbackMessageModel> model = null;
             // TempData takes precedence over static attributes, if we're set to use it
-            if(UseTempData)
+            if (UseTempData)
             {
                 try
                 {
-                    model = ViewContext.TempData.GetFeedbackMessage();
+                    model = ViewContext.TempData.GetFeedbackMessages();
                 }
                 catch (JsonSerializationException)
                 {
                     // We don't care; model will be null and so we'll pick up outside this block
                 }
             }
-
             // Either we're not using TempData, or none was successfully set
-            if(model is null)
-                model = new FeedbackMessageModel
+            if (model is null && !string.IsNullOrWhiteSpace(Message))
+                model = new List<FeedbackMessageModel>
                 {
-                    Message = Message,
-                    Type = Type,
-                    Dismissable = Dismissable
+                    new FeedbackMessageModel()
+                    {
+                        Message = Message,
+                        Type = Type,
+                        Dismissable = Dismissable
+                    }
                 };
-
-            if (string.IsNullOrWhiteSpace(model.Message)) return;
-
+            if (model is null) return;
             ((IViewContextAware)_viewComponentHelper).Contextualize(ViewContext);
-
             var content = await _viewComponentHelper.InvokeAsync(
                 typeof(UonFeedbackMessage), model);
-
             output.Content.SetHtmlContent(content);
         }
     }
