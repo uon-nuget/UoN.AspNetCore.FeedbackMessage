@@ -20,7 +20,7 @@ It provides the following code items:
 
 - A model class representing a configurable Feedback Message.
 - Extension methods for setting and getting `FeedbackMessageModel`s at `TempData["FeedbackMessage"]`.
-- A View for rendering a `List<FeedbackMessageModel>` as a [Bootstrap 4] style alert.
+- A View for rendering a list of `FeedbackMessageModel`s with a [Bootstrap 4] style alert per model
 - A ViewComponent for rendering the above View, or a local override.
 - A TagHelper for rendering the above ViewComponent with a model either from `TempData["FeedbackMessage"]` or as configured by attributes.
 - A Controller for returning the above ViewComponent as configured by the HTTP request; useful for requesting via AJAX to add the result to a page.
