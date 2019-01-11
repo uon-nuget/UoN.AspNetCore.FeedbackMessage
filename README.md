@@ -80,6 +80,7 @@ By default, an empty `<uon-feedbackmessage />` TagHelper will only render an ale
 1. Acquire the library via one of the methods above.
 1. Ensure the [ASP.NET Core Session Middleware] is configured in your project.
 1. Use `this.AddFeedbackMessage()` inside an MVC Controller method for every feedback message you want to display.
+  - optionally use `this.ClearFeedbackMessages()` inside an MVC Controller method to remove all currently set messages.
 1. Import TagHelpers from this assembly
     - add the following to a Razor View, or to `_ViewImports.cshtml`:
     - `@addTagHelper *, UoN.AspNetCore.FeedbackMessage`
