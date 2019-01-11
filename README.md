@@ -19,7 +19,7 @@ Feedback Message alert features:
 It provides the following code items:
 
 - A model class representing a configurable Feedback Message.
-- Extension methods for setting and getting `FeedbackMessageModel`s at `TempData["FeedbackMessage"]`.
+- Extension methods for setting, getting and clearing multiple `FeedbackMessageModel`s at `TempData["FeedbackMessage"]`.
 - A View for rendering a list of `FeedbackMessageModel`s with a [Bootstrap 4] style alert per model
 - A ViewComponent for rendering the above View, or a local override.
 - A TagHelper for rendering the above ViewComponent with a model either from `TempData["FeedbackMessage"]` or as configured by attributes.
