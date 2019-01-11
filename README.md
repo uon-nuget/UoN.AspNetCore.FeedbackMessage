@@ -14,7 +14,7 @@ Feedback Message alert features:
 - Alerts can include a "close" button, to dismiss them. This works out the box with [Bootstrap 4], or can otherwise be implemented separately.
 - Can be used for static alerts as well as Session based `TempData` driven alerts.
 - Can be used via AJAX to build alert markup without reloading the page.
-- Can show multiple alearts at once.
+- Can show multiple alerts at once.
 
 It provides the following code items:
 
